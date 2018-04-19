@@ -5,6 +5,27 @@ $(document).ready(onReady);
 function onReady() {
   console.log('jquery-3.3.1.min.js has been loaded');
   loadRecords();
+  $('#btn-submit').on('click', submitNewSong);
+}
+
+function submitNewSong() {
+  let song = {
+    title: $('#in-title').val(),
+    year: Number($('#in-year').val()),
+    artist: $('#in-artist').val(),
+    cost: Number($('#in-cost').val()),
+  };
+
+  $.ajax({
+    method: 'POST',
+    url: '/add-record',
+    data: song
+  })
+    .then(function (response) {
+      loadRecords();
+    });
+
+  $('input').val('');
 }
 
 function loadRecords() {
@@ -13,6 +34,7 @@ function loadRecords() {
     url: '/records'
   })
     .then(function (response) {
+      $('#recordsList').empty();
       response.forEach(record => {
         $('#recordsList').append(`<tr>
         <td>${record.title}</td>
