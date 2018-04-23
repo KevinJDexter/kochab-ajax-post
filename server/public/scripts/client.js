@@ -18,7 +18,7 @@ function submitNewSong() {
 
   $.ajax({
     method: 'POST',
-    url: '/add-record',
+    url: '/record/add',
     data: song
   })
     .then(function (response) {
@@ -31,7 +31,7 @@ function submitNewSong() {
 function loadRecords() {
   $.ajax({
     type: 'GET',
-    url: '/records'
+    url: '/record'
   })
     .then(function (response) {
       $('#recordsList').empty();
